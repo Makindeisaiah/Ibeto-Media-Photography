@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { GalleryImage, ServiceCategory } from '../types';
 import { GALLERY_IMAGES, SERVICE_CATEGORIES } from '../data/photographyData';
-import { Eye, SlidersHorizontal, Sparkles } from 'lucide-react';
+import { Eye, SlidersHorizontal, Sparkles, Camera } from 'lucide-react';
 
 interface GalleryViewProps {
   initialCategory?: string | null;
@@ -116,11 +116,21 @@ export const GalleryView: React.FC<GalleryViewProps> = ({
                 onClick={() => onOpenLightbox(img)}
                 className="break-inside-avoid group relative cursor-pointer overflow-hidden rounded-sm bg-zinc-900 border border-zinc-800/90 hover:border-[#c5a86d]/60 transition-all duration-300 shadow-lg"
               >
-                <div className={`relative w-full ${aspectClasses} overflow-hidden bg-zinc-950`}>
+                <div className={`relative w-full ${aspectClasses} overflow-hidden bg-[#121318]`}>
+                  {/* Background slot guide */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-0">
+                    <div className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-1.5 text-[#c5a86d]/60">
+                      <Camera className="w-4 h-4" />
+                    </div>
+                    <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-wider">
+                      {img.slotFilename}
+                    </span>
+                  </div>
+
                   <img
                     src={img.imageUrl}
                     alt={img.placeholderAlt || img.title}
-                    className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                    className="w-full h-full object-cover object-center relative z-1 transform group-hover:scale-105 transition-transform duration-700 ease-out"
                     loading="lazy"
                   />
 

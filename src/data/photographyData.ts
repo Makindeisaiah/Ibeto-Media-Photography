@@ -1,5 +1,47 @@
 import { GalleryImage, ServiceCategory, ServiceItem, Testimonial, BehindTheScenesItem } from '../types';
 
+/**
+ * Dynamic resolution of all user images in /src/assets/images/
+ * Vite bundles or serves any .jpg, .jpeg, .png, or .webp placed in these folders.
+ */
+const assetImageModules = import.meta.glob<string>(
+  '/src/assets/images/**/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG}',
+  {
+    eager: true,
+    import: 'default',
+  }
+);
+
+/**
+ * Returns the resolved asset URL for any slot in /src/assets/images/
+ * Supports automatic fallback to .png, .jpeg, or .webp if the user drops that format.
+ */
+export function getLocalSlotUrl(subpath: string): string {
+  const cleanPath = subpath.replace(/^\//, '');
+  const exactKey = `/src/assets/images/${cleanPath}`;
+
+  if (assetImageModules[exactKey]) {
+    return assetImageModules[exactKey];
+  }
+
+  // Try matching alternative extensions (.png, .jpeg, .webp, .JPG, .PNG)
+  const withoutExt = exactKey.replace(/\.[^/.]+$/, '');
+  const candidateExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.JPG', '.JPEG', '.PNG'];
+
+  for (const ext of candidateExtensions) {
+    const candidate = `${withoutExt}${ext}`;
+    if (assetImageModules[candidate]) {
+      return assetImageModules[candidate];
+    }
+  }
+
+  // Return standard path if not yet indexed
+  return exactKey;
+}
+
+export const HERO_IMAGE_SLOT = 'hero/hero-main.jpg';
+export const ABOUT_IMAGE_SLOT = 'about/photographer-bio.jpg';
+
 export const STUDIO_INFO = {
   name: 'Ibeto Media Photography',
   shortName: 'Ibeto Media',
@@ -8,7 +50,7 @@ export const STUDIO_INFO = {
   location: 'Studio 4B, Admiralty Way, Lekki Phase 1, Lagos, Nigeria',
   email: 'bookings@ibetomedia.com',
   phone: '+234 803 912 8400',
-  whatsappNumber: '+2348039128400', // International format for wa.me links
+  whatsappNumber: '+2348039128400',
   instagramHandle: '@ibetomedia',
   instagramUrl: 'https://instagram.com/ibetomedia',
   hours: 'Monday – Saturday: 9:00 AM – 7:00 PM (Sunday by VIP appointment)',
@@ -18,7 +60,6 @@ export const STUDIO_INFO = {
 };
 
 /**
- * SERVICE CATEGORIES LIST
  * Exact 8 categories requested:
  * Corporate, Events & Parties, Family & Group, Headshots & Portraits,
  * Individual, Maternity & Newborn, Product, Property
@@ -36,82 +77,85 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
 
 /**
  * GALLERY IMAGES
- * High-quality placeholder photographs formatted for dark gallery aesthetic.
- * SWAPPING INSTRUCTIONS:
- * To replace with your own photos:
- * 1. Place your image files in `/public/images/` (e.g. `/images/corporate-1.jpg`)
- * 2. Update the `imageUrl` property below to match your file path or your hosted URL.
+ * Mapped to /src/assets/images/[category]/[filename].jpg
+ * Drag and drop your real photos directly into these folders.
  */
 export const GALLERY_IMAGES: GalleryImage[] = [
   // 1. Corporate
   {
     id: 'corp-1',
-    title: 'The Modern Executive',
+    title: 'Executive Boardroom Portrait',
     category: 'Corporate',
-    imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Corporate executive portrait in modern Lagos office',
+    slotFilename: 'corporate/corporate-1.jpg',
+    imageUrl: getLocalSlotUrl('corporate/corporate-1.jpg'),
+    placeholderAlt: 'Corporate executive portrait slot 1',
     aspectRatio: 'portrait',
     featured: true,
     year: '2025',
     clientOrLocation: 'Victoria Island, Lagos',
-    caption: 'Executive branding session for fintech leadership board in Victoria Island.',
+    caption: 'Executive leadership branding session in Victoria Island.',
   },
   {
     id: 'corp-2',
-    title: 'Boardroom Summit & Vision',
+    title: 'Corporate Leadership & Vision',
     category: 'Corporate',
-    imageUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Corporate business leader portrait with subtle rim lighting',
+    slotFilename: 'corporate/corporate-2.jpg',
+    imageUrl: getLocalSlotUrl('corporate/corporate-2.jpg'),
+    placeholderAlt: 'Corporate leadership portrait slot 2',
     aspectRatio: 'landscape',
     featured: false,
-    year: '2024',
+    year: '2025',
     clientOrLocation: 'Ikoyi Business District',
-    caption: 'Corporate narrative campaign highlighting African enterprise and thought leadership.',
+    caption: 'Corporate narrative campaign highlighting African enterprise and executive poise.',
   },
   {
     id: 'corp-3',
-    title: 'Leadership in Tech',
+    title: 'Contemporary Enterprise Profile',
     category: 'Corporate',
-    imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Contemporary corporate portrait with soft fill light',
+    slotFilename: 'corporate/corporate-3.jpg',
+    imageUrl: getLocalSlotUrl('corporate/corporate-3.jpg'),
+    placeholderAlt: 'Corporate enterprise portrait slot 3',
     aspectRatio: 'portrait',
     featured: false,
     year: '2025',
     clientOrLocation: 'Lekki Phase 1',
-    caption: 'Clean, approachable corporate branding for startup founder.',
+    caption: 'Clean, authoritative corporate branding for founders and partners.',
   },
 
   // 2. Events & Parties
   {
     id: 'event-1',
-    title: 'Royal Lagos Gala Soirée',
+    title: 'High-Society Gala Soirée',
     category: 'Events & Parties',
-    imageUrl: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Evening luxury gala celebration with warm ambient illumination',
+    slotFilename: 'events/events-1.jpg',
+    imageUrl: getLocalSlotUrl('events/events-1.jpg'),
+    placeholderAlt: 'Evening luxury gala celebration slot 1',
     aspectRatio: 'landscape',
     featured: true,
     year: '2025',
-    clientOrLocation: 'Eko Hotel & Suites, Victoria Island',
-    caption: 'Unscripted elegance at an annual luxury fashion and charity gala.',
+    clientOrLocation: 'Eko Hotel, Victoria Island',
+    caption: 'Unscripted elegance at an annual luxury fashion and milestone celebration.',
   },
   {
     id: 'event-2',
     title: 'Traditional Nuptial Grandeur',
     category: 'Events & Parties',
-    imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Glamorous event celebration moment with rich ceremonial fabrics',
+    slotFilename: 'events/events-2.jpg',
+    imageUrl: getLocalSlotUrl('events/events-2.jpg'),
+    placeholderAlt: 'Celebration ceremony moment slot 2',
     aspectRatio: 'portrait',
     featured: false,
-    year: '2024',
-    clientOrLocation: 'Ikoyi Lagos',
-    caption: 'Capturing the color, warmth, and vibrant jubilation of a grand wedding celebration.',
+    year: '2025',
+    clientOrLocation: 'Ikoyi, Lagos',
+    caption: 'Capturing the color, warmth, and jubilation of a grand wedding celebration.',
   },
   {
     id: 'event-3',
-    title: 'High-Society Evening Reception',
+    title: 'Evening Milestone Reception',
     category: 'Events & Parties',
-    imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Atmospheric evening celebration with golden bokeh lights',
+    slotFilename: 'events/events-3.jpg',
+    imageUrl: getLocalSlotUrl('events/events-3.jpg'),
+    placeholderAlt: 'Evening celebration with ambient light slot 3',
     aspectRatio: 'landscape',
     featured: false,
     year: '2025',
@@ -122,27 +166,42 @@ export const GALLERY_IMAGES: GalleryImage[] = [
   // 3. Family & Group
   {
     id: 'fam-1',
-    title: 'Generational Warmth',
+    title: 'Generational Heirloom Portrait',
     category: 'Family & Group',
-    imageUrl: 'https://images.unsplash.com/photo-1609234656388-0ff363383899?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Warm family portrait celebrating heritage and togetherness',
+    slotFilename: 'family-group/family-group-1.jpg',
+    imageUrl: getLocalSlotUrl('family-group/family-group-1.jpg'),
+    placeholderAlt: 'Family generational portrait slot 1',
     aspectRatio: 'portrait',
     featured: true,
     year: '2025',
     clientOrLocation: 'Ibeto Studio, Lekki',
-    caption: 'A timeless heirloom portrait commissioned for a 70th matriarch birthday milestone.',
+    caption: 'A timeless heirloom portrait commissioned for a multi-generational milestone.',
   },
   {
     id: 'fam-2',
-    title: 'Joy of Heritage',
+    title: 'Heritage & Togetherness',
     category: 'Family & Group',
-    imageUrl: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Siblings and family group smiling in natural warm light',
+    slotFilename: 'family-group/family-group-2.jpg',
+    imageUrl: getLocalSlotUrl('family-group/family-group-2.jpg'),
+    placeholderAlt: 'Family group portrait slot 2',
     aspectRatio: 'square',
     featured: false,
-    year: '2024',
+    year: '2025',
     clientOrLocation: 'Lekki Studio',
-    caption: 'Relaxed, authentic smiles crafted with studio lighting that feels completely natural.',
+    caption: 'Authentic connection crafted with studio lighting that feels completely natural.',
+  },
+  {
+    id: 'fam-3',
+    title: 'Kinship & Legacy Gathering',
+    category: 'Family & Group',
+    slotFilename: 'family-group/family-group-3.jpg',
+    imageUrl: getLocalSlotUrl('family-group/family-group-3.jpg'),
+    placeholderAlt: 'Family group gathering slot 3',
+    aspectRatio: 'landscape',
+    featured: false,
+    year: '2025',
+    clientOrLocation: 'Victoria Island Residence',
+    caption: 'Honoring shared history, laughter, and family bonds.',
   },
 
   // 4. Headshots & Portraits
@@ -150,20 +209,22 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     id: 'head-1',
     title: 'Editorial Studio Chiaroscuro',
     category: 'Headshots & Portraits',
-    imageUrl: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Dramatic chiaroscuro studio portrait of a woman',
+    slotFilename: 'headshots-portraits/headshots-portraits-1.jpg',
+    imageUrl: getLocalSlotUrl('headshots-portraits/headshots-portraits-1.jpg'),
+    placeholderAlt: 'Studio chiaroscuro portrait slot 1',
     aspectRatio: 'portrait',
     featured: true,
     year: '2025',
     clientOrLocation: 'Ibeto Main Studio',
-    caption: 'Dramatic rim lighting showcasing facial symmetry, confidence, and intense depth.',
+    caption: 'Dramatic rim lighting showcasing facial symmetry, depth, and character.',
   },
   {
     id: 'head-2',
-    title: 'The Nollywood Visionary',
+    title: 'The Creative Visionary',
     category: 'Headshots & Portraits',
-    imageUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Expressive masculine headshot with dark background',
+    slotFilename: 'headshots-portraits/headshots-portraits-2.jpg',
+    imageUrl: getLocalSlotUrl('headshots-portraits/headshots-portraits-2.jpg'),
+    placeholderAlt: 'Masculine creative headshot slot 2',
     aspectRatio: 'portrait',
     featured: true,
     year: '2025',
@@ -172,24 +233,26 @@ export const GALLERY_IMAGES: GalleryImage[] = [
   },
   {
     id: 'head-3',
-    title: 'Sartorial Expression',
+    title: 'Sartorial Beauty Portrait',
     category: 'Headshots & Portraits',
-    imageUrl: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Crisp studio headshot with gentle rim contrast',
+    slotFilename: 'headshots-portraits/headshots-portraits-3.jpg',
+    imageUrl: getLocalSlotUrl('headshots-portraits/headshots-portraits-3.jpg'),
+    placeholderAlt: 'Sartorial beauty portrait slot 3',
     aspectRatio: 'square',
     featured: false,
-    year: '2024',
+    year: '2025',
     clientOrLocation: 'Ibeto Studio',
-    caption: 'Precision beauty dish lighting bringing out micro-texture and skin tone richness.',
+    caption: 'Precision beauty dish lighting bringing out skin tone richness and subtle nuance.',
   },
 
   // 5. Individual
   {
     id: 'ind-1',
-    title: 'Golden Hour Haute Glamour',
+    title: 'Haute Editorial Glamour',
     category: 'Individual',
-    imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'High-fashion glamour portrait with warm amber rim light',
+    slotFilename: 'individual/individual-1.jpg',
+    imageUrl: getLocalSlotUrl('individual/individual-1.jpg'),
+    placeholderAlt: 'Haute editorial glamour slot 1',
     aspectRatio: 'portrait',
     featured: true,
     year: '2025',
@@ -200,20 +263,22 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     id: 'ind-2',
     title: 'Sculpted in Charcoal & Silk',
     category: 'Individual',
-    imageUrl: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Fashion editorial pose against textured studio backdrop',
+    slotFilename: 'individual/individual-2.jpg',
+    imageUrl: getLocalSlotUrl('individual/individual-2.jpg'),
+    placeholderAlt: 'Fashion editorial pose slot 2',
     aspectRatio: 'portrait',
     featured: false,
-    year: '2024',
+    year: '2025',
     clientOrLocation: 'Ibeto Studio, Lekki',
-    caption: 'Artistic direction emphasizing silhouette, texture, and tailored silhouettes.',
+    caption: 'Artistic direction emphasizing silhouette, texture, and bespoke tailoring.',
   },
   {
     id: 'ind-3',
-    title: 'Urban Vogue Lagos',
+    title: 'Contemporary Lagos Chic',
     category: 'Individual',
-    imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Radiant individual beauty portrait with radiant glow',
+    slotFilename: 'individual/individual-3.jpg',
+    imageUrl: getLocalSlotUrl('individual/individual-3.jpg'),
+    placeholderAlt: 'Individual beauty portrait slot 3',
     aspectRatio: 'square',
     featured: false,
     year: '2025',
@@ -224,53 +289,83 @@ export const GALLERY_IMAGES: GalleryImage[] = [
   // 6. Maternity & Newborn
   {
     id: 'mat-1',
-    title: 'Grace & Anticipation',
+    title: 'Grace & Sacred Anticipation',
     category: 'Maternity & Newborn',
-    imageUrl: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Ethereal maternity portrait with flowing drapery and soft backlighting',
+    slotFilename: 'maternity-newborn/maternity-newborn-1.jpg',
+    imageUrl: getLocalSlotUrl('maternity-newborn/maternity-newborn-1.jpg'),
+    placeholderAlt: 'Maternity portrait slot 1',
     aspectRatio: 'portrait',
     featured: true,
     year: '2025',
     clientOrLocation: 'Private Studio Sanctuary',
-    caption: 'A serene celebration of motherhood in flowing chiffon and sculptural lighting.',
+    caption: 'A serene celebration of motherhood in flowing drapery and sculptural lighting.',
   },
   {
     id: 'mat-2',
-    title: 'First Miracle & Whisper',
+    title: 'First Days & Gentle Whisper',
     category: 'Maternity & Newborn',
-    imageUrl: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Peaceful sleeping newborn cradled in gentle studio nest',
+    slotFilename: 'maternity-newborn/maternity-newborn-2.jpg',
+    imageUrl: getLocalSlotUrl('maternity-newborn/maternity-newborn-2.jpg'),
+    placeholderAlt: 'Newborn session slot 2',
     aspectRatio: 'landscape',
     featured: false,
-    year: '2024',
+    year: '2025',
     clientOrLocation: 'Ikoyi Residence',
-    caption: 'Delicate, safety-first newborn session preserving the tender innocence of day twelve.',
+    caption: 'Delicate, safety-first newborn session preserving tender innocence.',
+  },
+  {
+    id: 'mat-3',
+    title: 'Tender Maternal Silhouette',
+    category: 'Maternity & Newborn',
+    slotFilename: 'maternity-newborn/maternity-newborn-3.jpg',
+    imageUrl: getLocalSlotUrl('maternity-newborn/maternity-newborn-3.jpg'),
+    placeholderAlt: 'Maternity silhouette slot 3',
+    aspectRatio: 'portrait',
+    featured: false,
+    year: '2025',
+    clientOrLocation: 'Lekki Studio',
+    caption: 'Intimate fine art silhouette highlighting maternal beauty and poise.',
   },
 
   // 7. Product
   {
     id: 'prod-1',
-    title: 'Artisanal Fragrance & Amber Noir',
+    title: 'Luxury Fragrance & Obsidian Noir',
     category: 'Product',
-    imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Luxury minimalist product photography with obsidian reflective surface',
+    slotFilename: 'product/product-1.jpg',
+    imageUrl: getLocalSlotUrl('product/product-1.jpg'),
+    placeholderAlt: 'Product still life slot 1',
     aspectRatio: 'landscape',
     featured: true,
     year: '2025',
     clientOrLocation: 'Studio Light Table, Lekki',
-    caption: 'Commercial advertising still life for bespoke luxury fragrance brand.',
+    caption: 'Commercial advertising still life for bespoke luxury fragrance and skincare.',
   },
   {
     id: 'prod-2',
-    title: 'Handcrafted African Leather & Horology',
+    title: 'African Leather & Horology Detail',
     category: 'Product',
-    imageUrl: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Luxury watch and crafted accessories product shot with macro detail',
+    slotFilename: 'product/product-2.jpg',
+    imageUrl: getLocalSlotUrl('product/product-2.jpg'),
+    placeholderAlt: 'Luxury product macro slot 2',
     aspectRatio: 'square',
     featured: false,
-    year: '2024',
+    year: '2025',
     clientOrLocation: 'Lagos Atelier',
     caption: 'High-detail macro focus capturing tactile materials, stitching, and metal finishes.',
+  },
+  {
+    id: 'prod-3',
+    title: 'Artisanal Jewelry & Gemstones',
+    category: 'Product',
+    slotFilename: 'product/product-3.jpg',
+    imageUrl: getLocalSlotUrl('product/product-3.jpg'),
+    placeholderAlt: 'Jewelry campaign slot 3',
+    aspectRatio: 'landscape',
+    featured: false,
+    year: '2025',
+    clientOrLocation: 'Ibeto Studio Lightbox',
+    caption: 'Micro-reflections and razor-sharp sparkle on gold and precious stones.',
   },
 
   // 8. Property
@@ -278,8 +373,9 @@ export const GALLERY_IMAGES: GalleryImage[] = [
     id: 'prop-1',
     title: 'Architectural Opulence in Ikoyi',
     category: 'Property',
-    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Contemporary luxury waterfront villa exterior at twilight',
+    slotFilename: 'property/property-1.jpg',
+    imageUrl: getLocalSlotUrl('property/property-1.jpg'),
+    placeholderAlt: 'Property exterior architecture slot 1',
     aspectRatio: 'landscape',
     featured: true,
     year: '2025',
@@ -288,26 +384,42 @@ export const GALLERY_IMAGES: GalleryImage[] = [
   },
   {
     id: 'prop-2',
-    title: 'Minimalist Penthouse Living',
+    title: 'Minimalist Penthouse Interior',
     category: 'Property',
-    imageUrl: 'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80',
-    placeholderAlt: 'Interior design photography of spacious modern Lagos living room',
+    slotFilename: 'property/property-2.jpg',
+    imageUrl: getLocalSlotUrl('property/property-2.jpg'),
+    placeholderAlt: 'Property interior living space slot 2',
     aspectRatio: 'landscape',
     featured: false,
-    year: '2024',
+    year: '2025',
     clientOrLocation: 'Eko Atlantic City',
     caption: 'Interior editorial highlighting spatial flow, natural light balance, and curated finishes.',
+  },
+  {
+    id: 'prop-3',
+    title: 'Waterfront Villa Architecture',
+    category: 'Property',
+    slotFilename: 'property/property-3.jpg',
+    imageUrl: getLocalSlotUrl('property/property-3.jpg'),
+    placeholderAlt: 'Waterfront property showcase slot 3',
+    aspectRatio: 'portrait',
+    featured: false,
+    year: '2025',
+    clientOrLocation: 'Lekki Coastal Front',
+    caption: 'Sun-drenched architectural lines and contemporary Nigerian coastal living.',
   },
 ];
 
 /**
  * 8 SERVICE PACKAGES
- * Detailed cards matching all 8 categories
+ * Cover images correspond to each category's first slot in /src/assets/images/
  */
 export const SERVICES_LIST: ServiceItem[] = [
   {
     id: 'service-corp',
     category: 'Corporate',
+    slotFilename: 'corporate/corporate-1.jpg',
+    coverImage: getLocalSlotUrl('corporate/corporate-1.jpg'),
     shortDesc: 'Executive branding, annual reports, board members, and team commercial profiles.',
     whatsIncluded: [
       'On-location mobile studio or Lekki studio setup',
@@ -318,11 +430,12 @@ export const SERVICES_LIST: ServiceItem[] = [
     whoItsFor: 'Fintech companies, legal firms, C-suite executives, directors, and corporate communications teams.',
     estimatedDuration: '2 – 4 Hours',
     deliverables: '15 – 40 Retouched High-Res Images + Web Optimized Versions',
-    coverImage: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'service-events',
     category: 'Events & Parties',
+    slotFilename: 'events/events-1.jpg',
+    coverImage: getLocalSlotUrl('events/events-1.jpg'),
     shortDesc: 'Discreet, high-impact documentary coverage for high-profile galas, birthdays, and celebrations.',
     whatsIncluded: [
       'Comprehensive candid & staged guest documentation',
@@ -333,11 +446,12 @@ export const SERVICES_LIST: ServiceItem[] = [
     whoItsFor: 'Society weddings, luxury milestone birthdays, corporate galas, fashion launches, and private soirees.',
     estimatedDuration: 'Half Day (5 hrs) or Full Day (9 hrs)',
     deliverables: '150 – 400+ Curated Color-Graded High-Res Deliverables',
-    coverImage: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'service-family',
     category: 'Family & Group',
+    slotFilename: 'family-group/family-group-1.jpg',
+    coverImage: getLocalSlotUrl('family-group/family-group-1.jpg'),
     shortDesc: 'Heirloom studio and on-location portraiture that captures genuine generational connection.',
     whatsIncluded: [
       'Wardrobe and color palette consultation before the shoot',
@@ -348,11 +462,12 @@ export const SERVICES_LIST: ServiceItem[] = [
     whoItsFor: 'Families honoring anniversaries, holiday milestones, graduations, and multi-generational legacies.',
     estimatedDuration: '1.5 – 2 Hours',
     deliverables: '20 Master-Retouched High-Res Portraits + Web Gallery',
-    coverImage: 'https://images.unsplash.com/photo-1609234656388-0ff363383899?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'service-headshots',
     category: 'Headshots & Portraits',
+    slotFilename: 'headshots-portraits/headshots-portraits-1.jpg',
+    coverImage: getLocalSlotUrl('headshots-portraits/headshots-portraits-1.jpg'),
     shortDesc: 'Signature lighting setups crafted to communicate authority, approachability, and character.',
     whatsIncluded: [
       'Multiple backdrops (Obsidian Black, Charcoal Textured, Warm Ochre, Crisp Ivory)',
@@ -363,11 +478,12 @@ export const SERVICES_LIST: ServiceItem[] = [
     whoItsFor: 'Actors, creative directors, thought leaders, authors, keynote speakers, and professionals.',
     estimatedDuration: '1 – 1.5 Hours',
     deliverables: '6 – 10 Magazine-Quality Master Headshots',
-    coverImage: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'service-individual',
     category: 'Individual',
+    slotFilename: 'individual/individual-1.jpg',
+    coverImage: getLocalSlotUrl('individual/individual-1.jpg'),
     shortDesc: 'Bespoke glamour, editorial fashion, and creative self-celebration sessions.',
     whatsIncluded: [
       'Creative moodboard direction and lighting design',
@@ -378,11 +494,12 @@ export const SERVICES_LIST: ServiceItem[] = [
     whoItsFor: 'Influencers, creatives, individuals celebrating milestone birthdays, and personal brand transformations.',
     estimatedDuration: '2 Hours',
     deliverables: '12 – 18 Editorial Retouched Images',
-    coverImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'service-maternity',
     category: 'Maternity & Newborn',
+    slotFilename: 'maternity-newborn/maternity-newborn-1.jpg',
+    coverImage: getLocalSlotUrl('maternity-newborn/maternity-newborn-1.jpg'),
     shortDesc: 'Gentle, sculptural, and poetic sessions celebrating the sacred journey into motherhood.',
     whatsIncluded: [
       'Access to studio maternity draping gowns and wraps',
@@ -393,11 +510,12 @@ export const SERVICES_LIST: ServiceItem[] = [
     whoItsFor: 'Expecting mothers between 28–34 weeks and newborns within their first 14 days of arrival.',
     estimatedDuration: '2 – 3 Hours (unrushed for newborn comfort)',
     deliverables: '15 Hand-Finished Fine Art Digital Masterpieces',
-    coverImage: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'service-product',
     category: 'Product',
+    slotFilename: 'product/product-1.jpg',
+    coverImage: getLocalSlotUrl('product/product-1.jpg'),
     shortDesc: 'Crisp commercial catalog, macro e-commerce, and high-impact hero campaign advertising imagery.',
     whatsIncluded: [
       'Precision product staging, dust removal, and reflective control',
@@ -408,29 +526,25 @@ export const SERVICES_LIST: ServiceItem[] = [
     whoItsFor: 'Cosmetics brands, luxury jewelry makers, beverage distillers, fashion labels, and e-commerce founders.',
     estimatedDuration: 'Custom Project Based',
     deliverables: 'Batch High-Resolution Retouched Commercial Assets',
-    coverImage: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80',
   },
   {
     id: 'service-property',
     category: 'Property',
+    slotFilename: 'property/property-1.jpg',
+    coverImage: getLocalSlotUrl('property/property-1.jpg'),
     shortDesc: 'Architectural and interior space photography engineered for developers, architects, and luxury realtors.',
     whatsIncluded: [
       'Wide-angle perspective-corrected architectural lenses',
       'HDR window pull and ambient-plus-flash balanced lighting',
-      'Twilight / blue-hour exterior exterior hero shots',
+      'Twilight / blue-hour exterior hero shots',
       'Detailed lifestyle vignettes of interior finishes',
     ],
     whoItsFor: 'Real estate developers in Lekki/Ikoyi/Eko Atlantic, luxury Airbnb hosts, interior designers, and architects.',
     estimatedDuration: '2 – 4 Hours on site',
     deliverables: '25 – 60 High-Resolution Marketing Images',
-    coverImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
-/**
- * TESTIMONIALS DATA
- * Authentic Lagos client voices across fashion, corporate, bridal, and creative industries
- */
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 'test-1',
@@ -488,26 +602,26 @@ export const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-/**
- * BEHIND THE SCENES
- */
 export const BEHIND_THE_SCENES: BehindTheScenesItem[] = [
   {
     id: 'bts-1',
     title: 'The Lekki Sanctuary Studio',
-    description: 'A 1,400 sq ft climate-controlled acoustic space featuring custom backdrops, Profoto lighting modifiers, and dedicated client dressing suite.',
-    imageUrl: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80',
+    slotFilename: 'bts/bts-studio.jpg',
+    imageUrl: getLocalSlotUrl('bts/bts-studio.jpg'),
+    description: 'A climate-controlled acoustic space featuring custom textured backdrops, high-end modifiers, and client dressing suite.',
   },
   {
     id: 'bts-2',
     title: 'Precision Tethering & Color Grading',
-    description: 'Shooting tethered to calibrated EIZO monitors ensures clients and stylists see accurate skin tones and contrast in real time.',
-    imageUrl: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=800&q=80',
+    slotFilename: 'bts/bts-tethering.jpg',
+    imageUrl: getLocalSlotUrl('bts/bts-tethering.jpg'),
+    description: 'Shooting tethered to calibrated monitors ensures clients and stylists see true skin tones and contrast in real time.',
   },
   {
     id: 'bts-3',
     title: 'On-Location In Lagos & Beyond',
-    description: 'Equipped with battery-powered high-speed sync generators to capture dramatic sunset glamour across Lagos beaches and estates.',
-    imageUrl: 'https://images.unsplash.com/photo-1471341971476-ae15ff5dd4ea?auto=format&fit=crop&w=800&q=80',
+    slotFilename: 'bts/bts-location.jpg',
+    imageUrl: getLocalSlotUrl('bts/bts-location.jpg'),
+    description: 'Equipped with battery-powered high-speed generators to capture sunset glamour across Lagos beaches and private estates.',
   },
 ];

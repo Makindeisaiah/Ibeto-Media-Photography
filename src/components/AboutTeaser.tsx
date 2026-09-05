@@ -1,5 +1,5 @@
 import React from 'react';
-import { STUDIO_INFO } from '../data/photographyData';
+import { STUDIO_INFO, getLocalSlotUrl } from '../data/photographyData';
 import { PageView } from '../types';
 import { ArrowRight, Award, Camera, ShieldCheck } from 'lucide-react';
 
@@ -8,6 +8,8 @@ interface AboutTeaserProps {
 }
 
 export const AboutTeaser: React.FC<AboutTeaserProps> = ({ onNavigate }) => {
+  const bioImageSrc = getLocalSlotUrl('about/photographer-bio.jpg');
+
   return (
     <section id="home-about-teaser" className="py-20 sm:py-28 bg-[#090a0d] border-t border-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,7 +23,7 @@ export const AboutTeaser: React.FC<AboutTeaserProps> = ({ onNavigate }) => {
 
               <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-zinc-900 border border-zinc-800 shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1000&q=80"
+                  src={bioImageSrc}
                   alt="Ibeto Chukwuma - Lead Photographer & Creative Director"
                   className="w-full h-full object-cover object-center filter grayscale contrast-105 hover:grayscale-0 transition-all duration-700"
                 />

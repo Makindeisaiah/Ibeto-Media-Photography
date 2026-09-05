@@ -1,5 +1,5 @@
 import React from 'react';
-import { STUDIO_INFO, BEHIND_THE_SCENES } from '../data/photographyData';
+import { STUDIO_INFO, BEHIND_THE_SCENES, getLocalSlotUrl } from '../data/photographyData';
 import { PageView } from '../types';
 import { Camera, Sparkles, MapPin, CheckCircle, ArrowRight, HeartHandshake } from 'lucide-react';
 
@@ -8,6 +8,7 @@ interface AboutViewProps {
 }
 
 export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
+  const bioImageSrc = getLocalSlotUrl('about/photographer-bio.jpg');
   return (
     <div id="about-page" className="pt-28 pb-24 bg-[#0c0d10] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,7 +34,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
               <div className="absolute -inset-2 rounded-sm bg-gradient-to-tr from-[#c5a86d]/20 to-transparent blur-md -z-10" />
               <div className="aspect-[4/5] rounded-sm overflow-hidden bg-zinc-900 border border-zinc-800 shadow-2xl relative">
                 <img
-                  src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1000&q=80"
+                  src={bioImageSrc}
                   alt="Ibeto Chukwuma - Lead Photographer"
                   className="w-full h-full object-cover object-center"
                 />

@@ -1,19 +1,21 @@
 import React from 'react';
 import { PageView } from '../types';
 import { Calendar, MessageSquare, ArrowRight } from 'lucide-react';
-import { STUDIO_INFO } from '../data/photographyData';
+import { STUDIO_INFO, getLocalSlotUrl } from '../data/photographyData';
 
 interface CtaBannerProps {
   onNavigate: (page: PageView) => void;
 }
 
 export const CtaBanner: React.FC<CtaBannerProps> = ({ onNavigate }) => {
+  const ctaBgSrc = getLocalSlotUrl('events/events-1.jpg');
+
   return (
     <section id="cta-banner-section" className="relative py-24 sm:py-32 bg-black overflow-hidden border-t border-zinc-800">
       {/* Subtle atmospheric background glow */}
-      <div className="absolute inset-0 z-0 opacity-20">
+      <div className="absolute inset-0 z-0 opacity-20 bg-[#090a0d]">
         <img
-          src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1600&q=80"
+          src={ctaBgSrc}
           alt="Atmospheric photography background"
           className="w-full h-full object-cover filter blur-sm scale-105"
         />

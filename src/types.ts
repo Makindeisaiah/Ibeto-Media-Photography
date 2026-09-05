@@ -15,6 +15,7 @@ export interface GalleryImage {
   title: string;
   category: ServiceCategory;
   imageUrl: string;
+  slotFilename: string;
   placeholderAlt: string;
   aspectRatio: AspectRatioType;
   featured?: boolean;
@@ -33,6 +34,7 @@ export interface ServiceItem {
   deliverables: string;
   accentNote?: string;
   coverImage: string;
+  slotFilename: string;
 }
 
 export interface Testimonial {
@@ -50,6 +52,7 @@ export interface BehindTheScenesItem {
   title: string;
   description: string;
   imageUrl: string;
+  slotFilename: string;
 }
 
 export type PageView = 'home' | 'gallery' | 'services' | 'about' | 'testimonials' | 'contact';

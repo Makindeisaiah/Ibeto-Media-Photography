@@ -1,7 +1,7 @@
 import React from 'react';
 import { GalleryImage, PageView } from '../types';
 import { GALLERY_IMAGES } from '../data/photographyData';
-import { Eye, ArrowRight, Sparkles } from 'lucide-react';
+import { Eye, ArrowRight, Sparkles, Camera } from 'lucide-react';
 
 interface FeaturedGridProps {
   onOpenLightbox: (image: GalleryImage) => void;
@@ -53,11 +53,21 @@ export const FeaturedGrid: React.FC<FeaturedGridProps> = ({
               className="group relative cursor-pointer overflow-hidden rounded-sm bg-zinc-900 border border-zinc-800/80 hover:border-[#c5a86d]/50 transition-all duration-300 shadow-md"
             >
               {/* Aspect Ratio container: Portrait 4:5 */}
-              <div className="aspect-[4/5] w-full overflow-hidden relative">
+              <div className="aspect-[4/5] w-full overflow-hidden relative bg-[#121318]">
+                {/* Background slot plate */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-0">
+                  <div className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-2 text-[#c5a86d]/60">
+                    <Camera className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
+                    {img.slotFilename}
+                  </span>
+                </div>
+
                 <img
                   src={img.imageUrl}
                   alt={img.placeholderAlt || img.title}
-                  className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="w-full h-full object-cover object-center relative z-1 transform group-hover:scale-105 transition-transform duration-700 ease-out"
                   loading="lazy"
                 />
 

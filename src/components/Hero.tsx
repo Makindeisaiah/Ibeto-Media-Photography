@@ -1,5 +1,5 @@
 import React from 'react';
-import { STUDIO_INFO } from '../data/photographyData';
+import { STUDIO_INFO, getLocalSlotUrl } from '../data/photographyData';
 import { PageView } from '../types';
 import { ArrowDown, Sparkles, Calendar, Compass } from 'lucide-react';
 
@@ -8,17 +8,19 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
+  const heroImageSrc = getLocalSlotUrl('hero/hero-main.jpg');
+
   return (
     <section
       id="home-hero-section"
       className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-black"
     >
-      {/* Full-bleed background with subtle zoom / dark vignette */}
-      <div className="absolute inset-0 z-0">
+      {/* Full-bleed background from local /src/assets/images/hero/hero-main.jpg slot */}
+      <div className="absolute inset-0 z-0 bg-[#090a0d]">
         <img
-          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=2000&q=85"
-          alt="Ibeto Media Photography Studio Hero - Portraiture & Glamour"
-          className="w-full h-full object-cover object-center opacity-35 scale-105 transition-transform duration-1000 ease-out"
+          src={heroImageSrc}
+          alt="Ibeto Media Photography Studio Hero"
+          className="w-full h-full object-cover object-center opacity-40 scale-105 transition-transform duration-1000 ease-out"
         />
         {/* Subtle radial and gradient overlays for dark gallery feel */}
         <div className="absolute inset-0 bg-radial from-transparent via-[#0c0d10]/70 to-[#0c0d10]" />
