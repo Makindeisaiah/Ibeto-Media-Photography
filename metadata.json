@@ -1,0 +1,6 @@
+{
+  "name": "Ibeto Media Photography",
+  "description": "A refined, dark gallery-forward photography portfolio for Lagos-based Ibeto Media Photography, specializing in portrait, glamour, fashion, and events photography.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
