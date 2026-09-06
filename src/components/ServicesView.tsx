@@ -25,7 +25,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({
             Services & Commissions
           </h1>
           <p className="text-zinc-400 font-sans font-light text-base sm:text-lg leading-relaxed">
-            Every commission at Ibeto Media is tailored to deliver timeless visual distinction. Browse our eight specialized categories to find the ideal match for your creative or commercial needs.
+            Every commission at Ibeto Media is tailored to deliver timeless visual distinction. Browse our specialized disciplines to find the ideal match for your creative, milestone, or commercial vision.
           </p>
         </div>
 

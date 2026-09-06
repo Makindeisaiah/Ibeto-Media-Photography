@@ -1,12 +1,10 @@
 export type ServiceCategory =
+  | 'Wedding'
+  | 'Birthday'
   | 'Corporate'
-  | 'Events & Parties'
-  | 'Family & Group'
-  | 'Headshots & Portraits'
-  | 'Individual'
   | 'Maternity & Newborn'
-  | 'Product'
-  | 'Property';
+  | 'Modeling'
+  | 'Headshots & Portraits';
 
 export type AspectRatioType = 'portrait' | 'landscape' | 'square';
 

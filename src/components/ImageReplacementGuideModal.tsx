@@ -16,38 +16,36 @@ export const ImageReplacementGuideModal: React.FC<ImageReplacementGuideModalProp
   if (!isOpen) return null;
 
   const folderStructureGuide = `src/assets/images/
+├── wedding/
+│   ├── wedding-1.jpg
+│   ├── wedding-2.jpg
+│   ├── wedding-3.jpg
+│   └── wedding-4.jpg
+├── birthday/
+│   ├── birthday-1.jpg
+│   ├── birthday-2.jpg
+│   ├── birthday-3.jpg
+│   └── birthday-4.jpg
 ├── corporate/
 │   ├── corporate-1.jpg
 │   ├── corporate-2.jpg
-│   └── corporate-3.jpg
-├── events/
-│   ├── events-1.jpg
-│   ├── events-2.jpg
-│   └── events-3.jpg
-├── family-group/
-│   ├── family-group-1.jpg
-│   ├── family-group-2.jpg
-│   └── family-group-3.jpg
-├── headshots-portraits/
-│   ├── headshots-portraits-1.jpg
-│   ├── headshots-portraits-2.jpg
-│   └── headshots-portraits-3.jpg
-├── individual/
-│   ├── individual-1.jpg
-│   ├── individual-2.jpg
-│   └── individual-3.jpg
+│   ├── corporate-3.jpg
+│   └── corporate-4.jpg
 ├── maternity-newborn/
 │   ├── maternity-newborn-1.jpg
 │   ├── maternity-newborn-2.jpg
-│   └── maternity-newborn-3.jpg
-├── product/
-│   ├── product-1.jpg
-│   ├── product-2.jpg
-│   └── product-3.jpg
-├── property/
-│   ├── property-1.jpg
-│   ├── property-2.jpg
-│   └── property-3.jpg
+│   ├── maternity-newborn-3.jpg
+│   └── maternity-newborn-4.jpg
+├── modeling/
+│   ├── modeling-1.jpg
+│   ├── modeling-2.jpg
+│   ├── modeling-3.jpg
+│   └── modeling-4.jpg
+├── headshots-portraits/
+│   ├── headshots-portraits-1.jpg
+│   ├── headshots-portraits-2.jpg
+│   ├── headshots-portraits-3.jpg
+│   └── headshots-portraits-4.jpg
 ├── hero/
 │   └── hero-main.jpg
 ├── about/
