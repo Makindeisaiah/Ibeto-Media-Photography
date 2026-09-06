@@ -1,14 +1,13 @@
 import React from 'react';
 import { PageView, ServiceCategory } from '../types';
 import { STUDIO_INFO, SERVICE_CATEGORIES } from '../data/photographyData';
-import { Camera, Instagram, MessageSquare, Phone, Mail, MapPin, ArrowUp, Code2 } from 'lucide-react';
+import { Instagram, MessageSquare, Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (page: PageView, categoryFilter?: string) => void;
-  onOpenGuideModal?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenGuideModal }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -20,12 +19,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenGuideModal }) 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           {/* Studio Brand & Tagline */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full border border-[#c5a86d]/50 flex items-center justify-center bg-zinc-900">
-                <Camera className="w-4 h-4 text-[#c5a86d]" />
-              </div>
-              <span className="font-serif text-2xl text-white font-normal tracking-wider uppercase">
+            <div className="flex flex-col">
+              <span className="font-serif text-2xl text-white font-bold tracking-[0.14em] uppercase">
                 Ibeto Media
+              </span>
+              <span className="text-[9.5px] tracking-[0.28em] text-[#c5a86d] font-sans uppercase font-medium mt-1">
+                Photography
               </span>
             </div>
 
@@ -175,17 +174,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenGuideModal }) 
           </div>
 
           <div className="flex items-center gap-4">
-            {onOpenGuideModal && (
-              <button
-                id="footer-swap-photos-guide-btn"
-                onClick={onOpenGuideModal}
-                className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-[#c5a86d] transition-colors py-1 px-2 rounded-xs border border-zinc-800 bg-zinc-900/50"
-              >
-                <Code2 className="w-3.5 h-3.5 text-[#c5a86d]" />
-                <span>Photo Replacement Guide</span>
-              </button>
-            )}
-
             <button
               id="footer-back-to-top-btn"
               onClick={scrollToTop}

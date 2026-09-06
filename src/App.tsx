@@ -14,14 +14,12 @@ import { TestimonialsView } from './components/TestimonialsView';
 import { ContactView } from './components/ContactView';
 import { Footer } from './components/Footer';
 import { LightboxModal } from './components/LightboxModal';
-import { ImageReplacementGuideModal } from './components/ImageReplacementGuideModal';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageView>('home');
   const [selectedGalleryCategory, setSelectedGalleryCategory] = useState<string>('All');
   const [preselectedBookingCategory, setPreselectedBookingCategory] = useState<ServiceCategory | null>(null);
   const [activeLightboxImage, setActiveLightboxImage] = useState<GalleryImage | null>(null);
-  const [isGuideModalOpen, setIsGuideModalOpen] = useState<boolean>(false);
 
   // Parse hash on initial mount and browser back/forward buttons
   useEffect(() => {
@@ -148,17 +146,8 @@ export default function App() {
         onBookShootCategory={handleBookCategory}
       />
 
-      {/* Developer & Owner Image Replacement Guide Modal */}
-      <ImageReplacementGuideModal
-        isOpen={isGuideModalOpen}
-        onClose={() => setIsGuideModalOpen(false)}
-      />
-
       {/* Global Footer */}
-      <Footer
-        onNavigate={navigateTo}
-        onOpenGuideModal={() => setIsGuideModalOpen(true)}
-      />
+      <Footer onNavigate={navigateTo} />
     </div>
   );
 }

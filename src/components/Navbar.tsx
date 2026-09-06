@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PageView } from '../types';
 import { STUDIO_INFO } from '../data/photographyData';
-import { Camera, Menu, X, ArrowRight, Instagram, Phone } from 'lucide-react';
+import { Menu, X, ArrowRight, Instagram, Phone } from 'lucide-react';
 
 interface NavbarProps {
   currentPage: PageView;
@@ -40,8 +40,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
       id="main-navbar"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#0c0d10]/95 backdrop-blur-md border-b border-zinc-800/80 shadow-2xl py-3.5'
-          : 'bg-gradient-to-b from-black/90 via-black/50 to-transparent py-5'
+          ? 'bg-[#0c0d10]/95 backdrop-blur-md border-b border-zinc-800/80 shadow-2xl py-2.5 sm:py-3.5'
+          : 'bg-gradient-to-b from-black/90 via-black/50 to-transparent py-3 sm:py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -49,19 +49,14 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
         <button
           id="nav-logo-btn"
           onClick={() => handleNavClick('home')}
-          className="group text-left focus:outline-none flex items-center gap-3"
+          className="group text-left focus:outline-none flex flex-col justify-center shrink-0 select-none py-0.5"
         >
-          <div className="w-10 h-10 rounded-full border border-[#c5a86d]/40 flex items-center justify-center bg-zinc-900/80 group-hover:border-[#c5a86d] transition-colors">
-            <Camera className="w-5 h-5 text-[#c5a86d]" />
-          </div>
-          <div>
-            <span className="font-serif text-xl sm:text-2xl font-bold tracking-widest text-zinc-100 uppercase group-hover:text-[#c5a86d] transition-colors">
-              Ibeto Media
-            </span>
-            <span className="block text-[9px] tracking-[0.25em] text-zinc-400 font-sans uppercase">
-              Photography • Lagos
-            </span>
-          </div>
+          <span className="font-serif text-lg sm:text-2xl font-bold tracking-[0.12em] sm:tracking-widest text-zinc-100 uppercase group-hover:text-[#c5a86d] transition-colors leading-none whitespace-nowrap">
+            Ibeto Media
+          </span>
+          <span className="text-[8.5px] sm:text-[9.5px] tracking-[0.26em] sm:tracking-[0.3em] text-[#c5a86d]/90 font-sans uppercase font-medium mt-1 leading-none whitespace-nowrap group-hover:text-[#c5a86d] transition-colors">
+            Photography
+          </span>
         </button>
 
         {/* Desktop Navigation Links */}
@@ -110,21 +105,21 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
         </div>
 
         {/* Mobile Hamburger Button */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex md:hidden items-center gap-1.5 shrink-0">
           <button
             id="mobile-book-icon-btn"
             onClick={() => handleNavClick('contact')}
-            className="p-2 text-[#c5a86d] border border-[#c5a86d]/40 rounded-sm text-xs uppercase font-medium"
+            className="px-2.5 py-1 text-[#c5a86d] border border-[#c5a86d]/50 hover:border-[#c5a86d] rounded-xs text-[11px] uppercase tracking-wider font-medium hover:bg-[#c5a86d]/10 transition-colors whitespace-nowrap"
           >
             Book
           </button>
           <button
             id="mobile-menu-toggle-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-zinc-200 hover:text-white focus:outline-none"
+            className="p-1.5 text-zinc-200 hover:text-white focus:outline-none"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>

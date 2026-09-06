@@ -140,11 +140,6 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
                   <span>Portfolio Season • {image.year}</span>
                 </div>
               )}
-              {image.slotFilename && (
-                <div className="text-[11px] font-mono text-zinc-500 pt-1">
-                  <span className="text-zinc-400">Slot:</span> src/assets/images/{image.slotFilename}
-                </div>
-              )}
             </div>
           </div>
 
