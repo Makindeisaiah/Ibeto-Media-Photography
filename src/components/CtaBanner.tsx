@@ -8,7 +8,7 @@ interface CtaBannerProps {
 }
 
 export const CtaBanner: React.FC<CtaBannerProps> = ({ onNavigate }) => {
-  const ctaBgSrc = getLocalSlotUrl('events/events-1.jpg');
+  const ctaBgSrc = getLocalSlotUrl('wedding/wedding-1.jpg');
 
   return (
     <section id="cta-banner-section" className="relative py-24 sm:py-32 bg-black overflow-hidden border-t border-zinc-800">
@@ -32,7 +32,7 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onNavigate }) => {
         </h2>
 
         <p className="max-w-2xl mx-auto text-base sm:text-lg text-zinc-400 font-sans font-light leading-relaxed mb-10">
-          From corporate boardrooms and editorial glamour to high-society events and intimate family milestones, our calendar fills weeks in advance.
+          From corporate boardrooms and high-fashion modeling to luxury weddings, milestone birthdays, and intimate portraits, our calendar fills weeks in advance.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

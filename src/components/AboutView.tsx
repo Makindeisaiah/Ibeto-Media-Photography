@@ -61,7 +61,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
             </h2>
 
             <p className="text-zinc-300 font-sans text-base sm:text-lg leading-relaxed font-light">
-              Hello, I’m <span className="text-white font-medium">{STUDIO_INFO.photographerName}</span>. For over eight years, I have walked the vibrant streets, coastal shores, and modern skylines of Lagos, crafting signature portraits for individuals, visionary corporate leaders, high-fashion designers, and joyful families.
+              Hello, I’m <span className="text-white font-medium">{STUDIO_INFO.photographerName}</span>. For over eight years, I have walked the vibrant streets, coastal shores, and modern skylines of Lagos, crafting signature portraits for celebrated brides and grooms, visionary corporate leaders, high-fashion models, and milestone celebrants.
             </p>
 
             <p className="text-zinc-400 font-sans text-sm sm:text-base leading-relaxed">

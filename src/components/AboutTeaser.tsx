@@ -55,7 +55,7 @@ export const AboutTeaser: React.FC<AboutTeaserProps> = ({ onNavigate }) => {
             </h2>
 
             <p className="text-base sm:text-lg text-zinc-300 font-sans font-light leading-relaxed">
-              Based in the creative heartbeat of Lagos, <strong className="text-white font-normal">Ibeto Media Photography</strong> is an atelier devoted to the high-fashion art of portraiture, glamour, family legacies, and milestone celebrations.
+              Based in the creative heartbeat of Lagos, <strong className="text-white font-normal">Ibeto Media Photography</strong> is an atelier devoted to the high-fashion art of portraiture, modeling, weddings, and milestone celebrations.
             </p>
 
             <p className="text-sm sm:text-base text-zinc-400 font-sans leading-relaxed">
