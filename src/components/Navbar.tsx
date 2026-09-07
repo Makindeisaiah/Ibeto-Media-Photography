@@ -160,7 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
               <span className="flex items-center gap-1.5">
                 <Phone className="w-3.5 h-3.5 text-[#c5a86d]" /> {STUDIO_INFO.phone}
               </span>
-              <span className="text-zinc-500">Lekki Phase 1, Lagos</span>
+              <span className="text-zinc-500">Amuwo Odofin, Lagos</span>
             </div>
           </div>
         </div>

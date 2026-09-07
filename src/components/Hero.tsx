@@ -78,7 +78,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             <span className="text-[11px] text-zinc-400 font-sans uppercase tracking-wider">Sessions Captured</span>
           </div>
           <div className="border-l border-zinc-800 pl-4">
-            <span className="block text-xl font-serif text-[#c5a86d]">Lekki</span>
+            <span className="block text-xl font-serif text-[#c5a86d]">Amuwo</span>
             <span className="text-[11px] text-zinc-400 font-sans uppercase tracking-wider">Dedicated Studio</span>
           </div>
           <div className="border-l border-zinc-800 pl-4">

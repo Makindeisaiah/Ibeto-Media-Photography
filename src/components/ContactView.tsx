@@ -376,9 +376,6 @@ export const ContactView: React.FC<ContactViewProps> = ({ preselectedCategory })
                     <p className="text-xs sm:text-sm text-zinc-400 mt-0.5">
                       {STUDIO_INFO.location}
                     </p>
-                    <p className="text-[11px] text-zinc-500 mt-1">
-                      (Near Prince Ebeano Supermarket, Lekki Phase 1)
-                    </p>
                   </div>
                 </div>
 
@@ -453,7 +450,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ preselectedCategory })
                   className="w-full py-3 px-4 bg-gradient-to-r from-[#833ab4]/10 via-[#fd1d1d]/10 to-[#fcb045]/10 hover:from-[#833ab4] hover:via-[#fd1d1d] hover:to-[#fcb045] text-zinc-200 hover:text-white border border-zinc-800 hover:border-transparent rounded-sm font-sans text-xs tracking-widest uppercase font-semibold transition-all duration-300 flex items-center justify-center gap-2.5"
                 >
                   <Instagram className="w-4 h-4 text-pink-400" />
-                  <span>Follow @ibetomedia</span>
+                  <span>Follow {STUDIO_INFO.instagramHandle}</span>
                 </a>
               </div>
             </div>

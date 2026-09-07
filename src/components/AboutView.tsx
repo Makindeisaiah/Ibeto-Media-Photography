@@ -47,7 +47,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate }) => {
                     {STUDIO_INFO.photographerName}
                   </h3>
                   <p className="text-xs text-zinc-400 font-sans mt-1 flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#c5a86d]" /> Lekki Phase 1, Lagos, Nigeria
+                    <MapPin className="w-3.5 h-3.5 text-[#c5a86d]" /> Amuwo Odofin, Lagos, Nigeria
                   </p>
                 </div>
               </div>

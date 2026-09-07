@@ -36,7 +36,7 @@ export const AboutTeaser: React.FC<AboutTeaserProps> = ({ onNavigate }) => {
                     {STUDIO_INFO.photographerName}
                   </p>
                   <p className="text-xs text-zinc-400 font-sans mt-0.5">
-                    Lekki Phase 1, Lagos
+                    Amuwo Odofin, Lagos
                   </p>
                 </div>
               </div>

@@ -59,7 +59,7 @@ export const CtaBanner: React.FC<CtaBannerProps> = ({ onNavigate }) => {
         </div>
 
         <p className="mt-8 text-xs text-zinc-500 font-sans">
-          Studio visits by appointment • Lekki Phase 1, Lagos, Nigeria
+          Studio visits by appointment • Amuwo Odofin, Lagos, Nigeria
         </p>
       </div>
     </section>
